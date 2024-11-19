@@ -1,5 +1,12 @@
-const App = () => {
-  return <h1>这是app组件</h1>;
-};
+import { Fishes } from "./components/fishes";
+import { Father, Child1 } from "./components/setup";
 
-export default App;
+export default function App() {
+  return (
+    <div className="App">
+      <Father />
+      <Child1 />
+      <Fishes />
+    </div>
+  );
+}
