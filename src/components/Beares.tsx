@@ -1,7 +1,7 @@
 import { FC } from "react";
-import useStore from "@/store";
+import useBearStore from "@/store/bearStore";
 export const Father: FC = () => {
-  const bears = useStore((state) => state.bears);
+  const bears = useBearStore((state) => state.bears);
   return (
     <>
       <h1>Father组件</h1>
@@ -11,10 +11,12 @@ export const Father: FC = () => {
 };
 
 export const Child1: FC = () => {
-  const incrementBears = useStore((state) => state.incrementBears);
-  const resetBears = useStore((state) => state.resetBears);
-  const decrementBears = useStore((state) => state.decrementBears);
-  const asyncIncrementBears = useStore((state) => state.asyncIncrementBears);
+  const incrementBears = useBearStore((state) => state.incrementBears);
+  const resetBears = useBearStore((state) => state.resetBears);
+  const decrementBears = useBearStore((state) => state.decrementBears);
+  const asyncIncrementBears = useBearStore(
+    (state) => state.asyncIncrementBears
+  );
   return (
     <>
       <button onClick={incrementBears}>增加小熊🐻的数量</button>

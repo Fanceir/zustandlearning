@@ -1,8 +1,8 @@
 import { FC } from "react";
-import useStore from "@/store";
+import useFishesStore from "@/store/fishStore";
 export const Fishes: FC = () => {
-  const fishes = useStore((state) => state.fishes);
-  const incrementFishes = useStore((store) => store.incrementFishes);
+  const fishes = useFishesStore((state) => state.fishes);
+  const incrementFishes = useFishesStore((store) => store.incrementFishes);
   return (
     <>
       <h2>小鱼干的数量是{fishes}</h2>

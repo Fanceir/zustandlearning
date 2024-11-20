@@ -1,12 +1,11 @@
-import { Fishes } from "./components/fishes";
-import { Father, Child1 } from "./components/setup";
+import React from "react";
+import { Child1, Father } from "./components/Beares";
 
 export default function App() {
   return (
     <div className="App">
       <Father />
       <Child1 />
-      <Fishes />
     </div>
   );
 }
