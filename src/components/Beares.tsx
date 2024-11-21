@@ -1,5 +1,10 @@
 import { FC } from "react";
-import useBearStore from "@/store/bearStore";
+import useBearStore, {
+  incrementBears,
+  resetBears,
+  decrementBears,
+  asyncIncrementBear,
+} from "@/store/bearStore";
 export const Father: FC = () => {
   const bears = useBearStore((state) => state.bears);
   return (
@@ -11,12 +16,6 @@ export const Father: FC = () => {
 };
 
 export const Child1: FC = () => {
-  const incrementBears = useBearStore((state) => state.incrementBears);
-  const resetBears = useBearStore((state) => state.resetBears);
-  const decrementBears = useBearStore((state) => state.decrementBears);
-  const asyncIncrementBears = useBearStore(
-    (state) => state.asyncIncrementBears
-  );
   return (
     <>
       <button onClick={incrementBears}>增加小熊🐻的数量</button>
@@ -26,7 +25,7 @@ export const Child1: FC = () => {
       <hr></hr>
       <button onClick={() => decrementBears(5)}>bears-5</button>
       <hr></hr>
-      <button onClick={asyncIncrementBears}>一秒后+1</button>
+      <button onClick={asyncIncrementBear}>一秒后+1</button>
     </>
   );
 };
