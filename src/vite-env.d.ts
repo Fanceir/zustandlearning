@@ -8,5 +8,13 @@ type BearStoreType = {
 //一完善类型定义后，我们就可以在组件中使用store了
 type FishesStoreType = {
   fishes: number;
- 
+};
+
+type FamilyType = {
+  family: {
+    father: string;
+    mother: string;
+    son: string;
+    daughter?: string;
+  };
 };
