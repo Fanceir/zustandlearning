@@ -3,16 +3,21 @@ import { create } from "zustand";
 //在zustand中中间件本身就是一个函数
 import { devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+import  resetters  from "./tools/resetters";
 //2 创建store的hook
 //使用devtools一定要晚于immer
+const initBearState = {
+  bears: 0,
+};
 const useBearStore = create<BearStoreType>()(
   immer(
     devtools(
       persist(
-        () => {
+        (set) => {
+          resetters.push(() => set(initBearState));
           return {
             //bears相关的数据
-            bears: 0,
+            ...initBearState,
           };
         },
         { name: "bear-store" }

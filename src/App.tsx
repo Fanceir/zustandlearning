@@ -1,12 +1,11 @@
-import { Child1, Father } from "./components/Beares";
-import { Fishes } from "./components/fishes";
+import { Child1, Father, Child2 } from "./components/Beares";
 
 export default function App() {
   return (
     <div className="App">
       <Father />
       <Child1 />
-      <Fishes />
+      <Child2 />
     </div>
   );
 }
