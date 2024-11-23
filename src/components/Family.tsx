@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import { useShallow } from "zustand/shallow";
 import useFamilyStore, {
   addDaughter,
@@ -33,13 +33,29 @@ const FamilyMembers: FC = () => {
 };
 
 const FamilyNames: FC = () => {
+  const ref = useRef<() => void>();
   const names = useFamilyStore((state) => state.family);
+  useEffect(() => {
+    const unsubFn = useFamilyStore.subscribe(
+      (state) => state.family.son,
+      (newVal, oldVal) => {
+        console.log("son的名字发生了变化", newVal, oldVal);
+      },
+      {
+        fireImmediately: true,//一进入组件就触发一次
+      }
+    );
+    //
+    ref.current = unsubFn;
+    return () => unsubFn();
+  }, []);
   return (
     <>
       <h5>熊熊的名字：</h5>
       <p>{names.daughter}</p>
-      <button onClick={() => updateSonName("hajimi")}>修改son的名字</button>
+      <button onClick={() => updateSonName("haj")}>修改son的名字</button>
       <button onClick={() => addDaughter("sdfas")}>添加女儿</button>
+      <button onClick={() => ref.current && ref.current()}>取消订阅</button>
     </>
   );
 };

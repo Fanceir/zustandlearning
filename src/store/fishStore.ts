@@ -1,27 +1,34 @@
 import { create } from "zustand";
-import { persist, createJSONStorage, devtools } from "zustand/middleware";
+import {
+  persist,
+  createJSONStorage,
+  devtools,
+  subscribeWithSelector,
+} from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import resetters from "./tools/resetters";
 const initFishesState = {
   fishes: 0,
 };
 const useFishStore = create<FishesStoreType>()(
-  immer(
-    devtools(
-      persist(
-        (set) => {
-          //fishes相关的数据
-          resetters.push(() => set(initFishesState));
-          return {
-            ...initFishesState,
-          };
-        },
-        {
-          name: "fishes-store",
-          storage: createJSONStorage(() => sessionStorage),
-        }
-      ),
-      { name: "fishes-store" }
+  subscribeWithSelector(
+    immer(
+      devtools(
+        persist(
+          (set) => {
+            //fishes相关的数据
+            resetters.push(() => set(initFishesState));
+            return {
+              ...initFishesState,
+            };
+          },
+          {
+            name: "fishes-store",
+            storage: createJSONStorage(() => sessionStorage),
+          }
+        ),
+        { name: "fishes-store" }
+      )
     )
   )
 );

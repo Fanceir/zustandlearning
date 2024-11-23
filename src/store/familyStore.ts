@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, devtools } from "zustand/middleware";
+import { persist, devtools, subscribeWithSelector } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import resetters from "./tools/resetters";
 // family Store 的初始数据对象
@@ -11,16 +11,18 @@ const initFamilyState: FamilyType = {
   },
 };
 const useFamilyStore = create<FamilyType>()(
-  immer(
-    devtools(
-      persist(
-        (set) => {
-          resetters.push(() => set(initFamilyState));
-          return {
-            ...initFamilyState,
-          };
-        },
-        { name: "family-store" }
+  subscribeWithSelector(
+    immer(
+      devtools(
+        persist(
+          (set) => {
+            resetters.push(() => set(initFamilyState));
+            return {
+              ...initFamilyState,
+            };
+          },
+          { name: "family-store" }
+        )
       )
     )
   )

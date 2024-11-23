@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import useBearStore, {
   incrementBears,
   resetBears,
@@ -10,12 +10,25 @@ import { incrementFishes } from "@/store/fishStore";
 import { decrementFishes } from "@/store/fishStore";
 import { resetAllStore } from "@/store/tools/resetters";
 export const Father: FC = () => {
+  const [bgColor, setBgColor] = useState<"lightgreen" | "lightgrey">(
+    "lightgreen"
+  );
+  useEffect(() => {
+    const unsubFn = useFishesStore.subscribe(
+      (state) => state.fishes,
+      (newValue) => {
+        setBgColor(newValue <= 5 ? "lightgrey" : "lightgreen");
+      },
+      { fireImmediately: true }
+    );
+    return () => unsubFn();
+  });
   const bears = useBearStore((state) => state.bears);
   return (
-    <>
+    <div style={{ padding: 10, borderRadius: 5, backgroundColor: bgColor }}>
       <h1>Father组件</h1>
       <p>小熊🐻的数量是{bears}</p>
-    </>
+    </div>
   );
 };
 
