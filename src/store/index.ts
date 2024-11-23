@@ -1,35 +1,12 @@
 //1 按需导入create函数
 import { create } from "zustand";
+import createBearSlice from "./slice/bearSilce";
+import createFishSlice from "./slice/fishesSlice";
 
-//2 创建store的hook
-
-const useStore = create<BearType>()((set, get) => {
+const useStore = create<BearSliceType & FishesSliceType>()((...a) => {
   return {
-    //bears相关的数据
-    bears: 0,
-    incrementBears: () => {
-      set((prevState) => ({ bears: prevState.bears + 1 }));
-    },
-    resetBears: () => {
-      set({ bears: 0 });
-    },
-    decrementBears: (step = 1) => {
-      set((prevState) => ({ bears: prevState.bears - step }));
-    },
-    asyncIncrementBears: () => {
-      setTimeout(() => {
-        get().incrementBears();
-      }, 1000);
-    },
-
-    //fishes相关的数据
-    fishes: 0,
-    incrementFishes: () => {
-      set((prevState) => ({ fishes: prevState.fishes + 1 }));
-    },
-    decrementFishes: (step = 1) => {
-      set((prevState) => ({ fishes: prevState.fishes - step }));
-    },
+    ...createBearSlice(...a),
+    ...createFishSlice(...a),
   };
 });
 //额外的括号是因为create函数的参数是一个函数，
