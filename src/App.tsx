@@ -1,5 +1,6 @@
+import { Child1, Child2, Father } from "./components/Beares";
+import { FamilyWrapper } from "./components/Family";
 import { Fishes } from "./components/fishes";
-import { Father, Child1 } from "./components/setup";
 
 export default function App() {
   return (
@@ -7,6 +8,8 @@ export default function App() {
       <Father />
       <Child1 />
       <Fishes />
+      <Child2 />
+      <FamilyWrapper />
     </div>
   );
 }

@@ -1,12 +1,15 @@
 import { FC } from "react";
-import useStore from "@/store";
+import useFishesStore from "@/store/fishStore";
+import { incrementFishes } from "@/store/fishStore";
+import { decrementFishes } from "@/store/fishStore";
 export const Fishes: FC = () => {
-  const fishes = useStore((state) => state.fishes);
-  const incrementFishes = useStore((store) => store.incrementFishes);
+  const fishes = useFishesStore((state) => state.fishes);
+
   return (
     <>
       <h2>小鱼干的数量是{fishes}</h2>
       <button onClick={incrementFishes}>小鱼干增加1</button>
+      <button onClick={() => decrementFishes()}>小鱼干减少1</button>
     </>
   );
 };
