@@ -1,22 +1,27 @@
 import { StateCreator } from "zustand";
-const createBearSlice: StateCreator<BearSliceType> = (set, get) => {
+import useStore from "@/store";
+const initBearState = {
+  bears: 0,
+};
+const createBearSlice: StateCreator<BearSliceType> = () => {
   return {
-    bears: 0,
-    incrementBears: () => {
-      set((prevState) => ({ bears: prevState.bears + 1 }));
-    },
-    resetBears: () => {
-      set({ bears: 0 });
-    },
-    decrementBears: (step = 1) => {
-      set((prevState) => ({ bears: prevState.bears - step }));
-    },
-    asyncIncrementBears: () => {
-      setTimeout(() => {
-        get().incrementBears();
-      }, 1000);
-    },
+    ...initBearState,
   };
 };
+export const incrementBears = () =>
+  useStore.setState((prevState) => {
+    prevState.bears++;
+  });
 
+export const resetBears = () => {
+  useStore.setState(initBearState);
+};
+export const decrementBears = (step = 1) => {
+  useStore.setState((prevState) => ({ bears: prevState.bears - step }));
+};
+export const asyncIncrementBears = () => {
+  setTimeout(() => {
+    incrementBears();
+  }, 1000);
+};
 export default createBearSlice;

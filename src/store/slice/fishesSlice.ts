@@ -1,13 +1,17 @@
+import useStore from "@/store";
 import { StateCreator } from "zustand";
-const createFishSlice: StateCreator<FishesSliceType> = (set) => {
+const createFishSlice: StateCreator<FishesSliceType> = () => {
   return {
     fishes: 0,
-    incrementFishes: () => {
-      set((prevState) => ({ fishes: prevState.fishes + 1 }));
-    },
-    decrementFishes: (step = 1) => {
-      set((prevState) => ({ fishes: prevState.fishes - step }));
-    },
   };
+};
+export const incrementFishes = () => {
+  useStore.setState((prevState) => {
+    prevState.fishes++;
+  });
+};
+
+export const decrementFishes = (step = 1) => {
+  useStore.setState((prevState) => ({ fishes: prevState.fishes - step }));
 };
 export default createFishSlice;
