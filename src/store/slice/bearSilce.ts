@@ -1,9 +1,13 @@
 import { StateCreator } from "zustand";
 import useStore from "@/store";
+import resetters from "../tools/resetters";
 const initBearState = {
   bears: 0,
 };
-const createBearSlice: StateCreator<BearSliceType> = () => {
+const createBearSlice: StateCreator<BearSliceType> = (set) => {
+  resetters.push(() => {
+    set(initBearState);
+  });
   return {
     ...initBearState,
   };

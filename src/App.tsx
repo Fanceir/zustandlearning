@@ -6,7 +6,7 @@ export default function App() {
     <div className="App">
       <Father />
       <Child1 />
-      <Fishes />
+      <Fishes />Child1
     </div>
   );
 }
